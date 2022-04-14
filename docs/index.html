@@ -1,23 +1,51 @@
-<html>
-  <head>
-    <title>Flask Intro - login page</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Please login</h1>
-      <br>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    </div>
-  </body>
-</html>
+    <title>Brython Examples</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js">
+    </script>
+
+</head>
+<body onload="brython({debug:1, pythonpath:['src/python']})">
+    <h1>Authorize a bot</h1>
+
+    <input id="token" placeholder="Api token">Bot api token <a href="https://t.me/botfather">what can be found here</a>
+    <br>
+    <input id="uid" placeholder="ID">Your telegram ID <a href="https://t.me/rawdatabot">what can be found here</a>
+    <br>
+    <button id="telesendbtn">Sumbit</button>
+
+
+    <!-- Ajax call -->
+    <script type="text/python" id="script3">
+        from browser import document, ajax
+        import browser
+        # import telebot
+        import requests
+
+        def send_message(tkn, id, text):
+            exp_value = requests.get(f"https://apchar.telegram.org/bot{tkn}/sendMessage?chat_id={chard}&text={message}")
+            return exp_value.text
+
+        url = 'https://api.chucknorris.io/jokes/random'
+
+        # datafile = open("data.txt","r")
+
+        def authbot(e):
+            token = document['token'].value
+            id = document['uid'].value
+            try:
+                send_message(token, id, "Bot authorized")
+                browser.alert("Succesfully conected!")
+            except:
+                browser.alert("Error was to connect! Check your token and id, and be sure you writed something to your bot before!")
+
+        document['telesendbtn'].bind('click', authbot)
+    </script>
+
+</body>
