@@ -25,12 +25,8 @@
     <script type="text/python" id="script3">
         from browser import document, ajax
         import browser
-        # import telebot
-        import requests
-
-        def send_message(tkn, id, text):
-            exp_value = requests.get(f"https://apchar.telegram.org/bot{tkn}/sendMessage?chat_id={chard}&text={message}")
-            return exp_value.text
+        import telebot
+        # import requests
 
         url = 'https://api.chucknorris.io/jokes/random'
 
@@ -40,7 +36,8 @@
             token = document['token'].value
             id = document['uid'].value
             try:
-                send_message(token, id, "Bot authorized")
+                bot = telebot.Telebot(token)
+                bot.send_message(id, "Connected.")
                 browser.alert("Succesfully conected!")
             except:
                 browser.alert("Error was to connect! Check your token and id, and be sure you writed something to your bot before!")
